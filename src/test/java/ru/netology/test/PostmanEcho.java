@@ -1,5 +1,6 @@
 package ru.netology.test;
 
+import static io.restassured.RestAssured.authentication;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -72,6 +73,20 @@ class PostmanEcho {
                 .statusCode(200)
                 .headers("Connection", "keep-alive",
                         "Content-Type", "application/json; charset=utf-8");
+
+    }
+
+    @Test
+    void shouldRequestBasicAuth() {
+        given()
+                .baseUri("https://postman-echo.com")
+                .headers("Authorization","Basic cG9zdG1hbjpwYXNzd29yZA==")
+                .when()
+                .get("/basic-auth")
+
+                .then()
+                .statusCode(200)
+        ;
 
     }
 }
